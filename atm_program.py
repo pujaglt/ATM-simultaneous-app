@@ -1,48 +1,46 @@
-def check_balance():
-    print("Your Current Balance is:", balance, "Rupees only")
+user = {
+    'pin': 1234,
+    'balance':1000
+}
 
-def deposit():
-    global balance
-    damount = int(input("Enter your Deposit amount: "))
-    balance += damount
-    print("Successfully Deposited")
-
-def withdraw():
-    global balance
-    amount = int(input("Enter the Withdrawal amount: "))
-    if amount <= balance:
-        balance -= amount
-        print("Transaction Successful")
-    else:
-        print("Insufficient Balance")
-
-def main():
-    pin = 1234
-    balance = 1000000
-    
-    print('Insert your Card')
-    confirm_pin = int(input("Enter Your Pin: "))
-
-    if pin == confirm_pin:
-        print("Enter 1 for Balance Inquiry")
-        print("Enter 2 for Money Withdrawal")
-        print("Enter 3 for Money Deposit")
-        
-        option = int(input("Select an option (1/2/3): "))
-
-        if option == 1:
-            check_balance()
-        elif option == 2:
-            withdraw()
-        elif option == 3:
-            deposit()
+def widthdraw_cash():
+    while True:
+        amount = int(input("Enter the amount of money you want to widthdraw: "))
+        if amount > user['balance']:
+            print("You don't have sufficient balance to make this widthdrawal")
         else:
-            print("Invalid Option")
-    else:
-        print("Invalid PIN")
+            user['balance'] = user['balance'] - amount
+            print(f"{amount} Rupees successfully widthdrawn your remaining balance is {user['balance']} Rupees")
+            print('')
+            return False
 
-    print("Thank You, Visit Again")
+def balance_enquiry():
+    print(f"Total balance {user['balance']} Rupees")
+    print('')
 
 
-if __name__ == "__main__":
-    main()
+is_quit = False
+
+print('')
+print("Welcome to the pujaglt ATM")
+
+pin = int(input('Please enter your four digit pin: '))
+
+if pin == user['pin']:
+    while is_quit == False:
+        print("what do you want to do")
+        print(" Enter 1 to Widthdraw Cash \n Enter 2 for Balance Enquiry \n Enter 3 to Quit")
+
+        query = int(input("Enter the number corresponding to the activity you want to do: "))
+
+        if query == 1:
+            widthdraw_cash()
+        elif query == 2:
+            balance_enquiry()
+        elif query == 3:
+            is_quit = True
+
+        else:
+            print("Please enter a correct value shown")
+else:
+    print("Entered wrong pin")    
